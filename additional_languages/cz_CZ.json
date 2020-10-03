@@ -1,0 +1,22 @@
+{
+  "ConnectionName": "Jméno připojení",
+  "BoardAddress": "Adresa desky",
+  "Password": "Heslo",
+  "SaveInfoBtn": "Uložit data",
+  "ConnectBtn": "Připojit se",
+  "DisconnectBtn": "Odpojit se",
+  "TurnPConoffBtn": "Zap/vyp počítač",
+  "ConnectionDefault": "Připojení: není připojeno",
+  "Connecting": "Připojení: připojuji",
+  "Connected": "Připojení: připojeno",
+  "Error": "Připojení: nesprávná ip adresa",
+  "Disconnecting": "Připojení: odpojuji",
+  "Disconnected": "Připojení: odpojeno",
+  "SendTimeout": "Připojení: Vypršel čas, odpojuji...",
+  "PCOff": "Počítač: vypnuty",
+  "PCOn": "Počítač: zapnuty",
+  "CreateConnectionText": "Přidejte připojení kliknuv na +",
+  "Language" : "Jazyk",
+  "ReturnToMenu" : "Vratit se do menu",
+  "Save" : "Uložit"
+}

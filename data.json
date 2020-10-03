@@ -1,0 +1,22 @@
+[
+  {
+    "Name": "Esp32",
+    "Address": "ws://192.168.0.206:8266",
+    "Password": "fktrc52"
+  },
+  {
+    "Name": "New connection",
+    "Address": "ws://192.168.0.206:8266",
+    "Password": "FKTRC52"
+  },
+  {
+    "Name": "New connection",
+    "Address": "ws://192.168.0.0:8266",
+    "Password": ""
+  },
+  {
+    "Name": "New connection",
+    "Address": "ws://192.168.0.0:8266",
+    "Password": ""
+  }
+]

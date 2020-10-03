@@ -1,0 +1,22 @@
+{
+  "ConnectionName": "Connection name",
+  "BoardAddress": "Board address",
+  "Password": "Password",
+  "SaveInfoBtn": "Save info",
+  "ConnectBtn": "Connect",
+  "DisconnectBtn": "Disconnect",
+  "TurnPConoffBtn": "Turn PC on/off",
+  "ConnectionDefault": "Connection: not connected",
+  "Connecting": "Connection: trying to connect",
+  "Connected": "Connection: connected",
+  "Error": "Connection: invalid ip address",
+  "Disconnecting": "Connection: disconnecting...",
+  "Disconnected": "Connection: disconnected",
+  "SendTimeout": "Connection: Send timeout, disconnecting...",
+  "PCOff": "PC: off",
+  "PCOn": "PC: on",
+  "CreateConnectionText": "Click on + to add new connection",
+  "Language": "Language",
+  "ReturnToMenu": "Return to menu",
+  "Save": "Save"
+}

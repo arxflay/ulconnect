@@ -41,7 +41,7 @@
         <!--ConnectionPanel blocks-->
         <Grid Margin="259,0" IsVisible="{Binding ConnectionInfoDatabase.IsDatabaseEmpty}" >
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Classes="IndividualTextBlock" Name="SelectConnectionTblock" Width="548"  FontFamily="Courier New" FontSize="28" Text="{Binding CreateConnectionText}"></TextBlock>
+            <TextBlock Classes="IndividualTextBlock" Name="SelectConnectionTblock" Width="548"  FontFamily="Courier New" FontSize="28" Text="{Binding ConnectionInfoDatabase.CreateConnectionText}"></TextBlock>
             </StackPanel>
         </Grid>
         <!--Navigationbar blocks-->

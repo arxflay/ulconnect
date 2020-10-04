@@ -28,6 +28,7 @@ namespace UlConnect.ViewModels
                 settingsDatabase.ChangeParameter("Language", FileNames[selectedIndex]);
                 languageDatabase.ImportLanguage(FileNames[selectedIndex]);
                 UpdateVisual(languageDatabase);
+                connectionInfoDatabase.CreateConnectionText = languageDatabase.Database["CreateConnectionText"];
                 languageDatabase.SetLanguageForAllElementsInDatabase(connectionInfoDatabase.Database);
                 });
         }

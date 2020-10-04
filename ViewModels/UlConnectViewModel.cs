@@ -24,18 +24,15 @@ namespace UlConnect.ViewModels
         private int selectedTabIndex;
         
         private string validWebsocketAddress;
-        private string createConnectionText; 
         public int SelectedIndex {get {return selectedTabIndex;} set{this.RaiseAndSetIfChanged(ref selectedTabIndex, value);} }
         private LanguageDatabase languageDatabase;
         public ConnectionInfoDatabase ConnectionInfoDatabase {get; set;}
        
-        public string CreateConnectionText {get {return createConnectionText;} set {this.RaiseAndSetIfChanged(ref createConnectionText, value);}}
         private SortedList<int, WebsocketWithTimer> webSockets;
         public UlConnectViewModel(LanguageDatabase languageDatabase)
         {
             this.languageDatabase = languageDatabase;
             ConnectionInfoDatabase = new ConnectionInfoDatabase();
-            CreateConnectionText = languageDatabase.Database["CreateConnectionText"];
             //Websocket variables
             validWebsocketAddress = String.Format(@"ws://{0}.{0}.{0}.{0}:8266", @"(1\d{2}||25[012345]||2[01234]\d||[1-9]\d||\d)");
             rg = new Regex(validWebsocketAddress);

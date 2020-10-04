@@ -27,6 +27,7 @@ namespace UlConnect.ViewModels
             }
             
             MainMenu = new UlConnectViewModel(this.languageDatabase);
+            MainMenu.ConnectionInfoDatabase.CreateConnectionText = languageDatabase.Database["CreateConnectionText"];
             Content = MainMenu;            
         }
         public void OpenSettingsMenu()

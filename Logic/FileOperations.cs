@@ -2,17 +2,42 @@ using System.IO;
 using UlConnect.Models;
 using Newtonsoft.Json;
 using System;
+using UlConnect.Views;
+using Avalonia.Controls.ApplicationLifetimes;
 using System.Diagnostics;
+using System.Threading;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 namespace UlConnect.Logic
 {
     public static class FileOperations
     {
-        public static Action UnsuccessImportAction {get; set;}
-        public static string AppDirectory {get {return AppDomain.CurrentDomain.BaseDirectory;}}
+        public static Action<string> UnsuccessImportAction {get; set;} //function which is called when occurs error while import something        
+        public static string AppDirectory {get {return AppDomain.CurrentDomain.BaseDirectory;}} //Directory where is stored app (compiled)
+        ///<summary>
+        ///Check if MainWindow's loaded until MainWindow's loaded and then calls UnsuccessImportAction.
+        ///</summary>
+        ///<param name="error">
+        ///Error text
+        ///</param>
+        public static void CallUnsucessfullImportAction(string error)
+        {  
+            ThreadPool.QueueUserWorkItem(o =>
+            {
+                while (!MainWindow.IsWindowLoaded) {
+                    Thread.Sleep(100);
+                };
+                UnsuccessImportAction(error);
+            });
+        }
+        ///<summary>
+        ///Reads data from file and return string data
+        ///</summary>
+        ///<returns>
+        ///Data in string from file
+        ///</returns>
         public static string ReadDataFromFile(string filename)
-        {
+        {      
             string data = "";
             TextReader tr = null;
             if (File.Exists(AppDirectory + filename + ".json"))
@@ -22,9 +47,9 @@ namespace UlConnect.Logic
                     tr = new StreamReader(AppDirectory + filename + ".json");
                     data = tr.ReadToEnd();
                 }
-                catch 
+                catch (Exception e)
                 {
-                    Debug.WriteLine("Unexpected error");
+                    CallUnsucessfullImportAction("Error when read file");
                 }
                 finally
                 {
@@ -33,24 +58,35 @@ namespace UlConnect.Logic
             }
             return data;
         }
+        ///<summary>
+        /// Deserealizes JSON data into List where are stored ConnectionInfoItems
+        ///</summary>
+        ///<param name="data">
+        /// JSON data
+        ///</param>
         public static List<ConnectionInfoItem> LoadDataToDatabase(string data)
         {
             List<ConnectionInfoItem> database = new List<ConnectionInfoItem>();
             try
             {
-                if (!(JsonConvert.DeserializeObject<ObservableCollection<ConnectionInfoItem>>(data) == null))
+                if (!(JsonConvert.DeserializeObject<List<ConnectionInfoItem>>(data) == null))
                 {
                     database = JsonConvert.DeserializeObject<List<ConnectionInfoItem>>(data);
                     Debug.WriteLine("successful import, number of connections = " + database.Count);
                 }
             }
-            catch (JsonReaderException e)
+            catch (Exception e)
             {
-                // TODO UnsuccessImportAction();
-                Debug.WriteLine("Unsuccessful import ");
+                CallUnsucessfullImportAction("data.json file is corrupted");
             }
             return database;
         }
+        ///<summary>
+        /// Saves ConnectionInfoItems collection into JSON file
+        ///</summary>
+        ///<param name="database">
+        /// ObservableCollection where are stored ConnectionInfoItems
+        ///</param>
         public static void SynchronizeFileWithDatabase(ObservableCollection<ConnectionInfoItem> database, string filename)
         {
             JsonSerializer serializer = new JsonSerializer();
@@ -59,6 +95,12 @@ namespace UlConnect.Logic
             serializer.Serialize(tw, database);
             tw.Close();
         }
+        ///<summary>
+        /// Gets all file names in folder and returns string List with file names without extentension
+        ///</summary>
+        ///<param name="path">
+        /// Path inside application folder
+        ///</param>
         public static List<string> GetFileNames(string path)
         {
             List<string> names = new List<string>();
@@ -73,6 +115,12 @@ namespace UlConnect.Logic
             }
             return names;
         }
+        ///<summary>
+        /// Loads JSON data into string dictionary
+        ///</summary>
+        ///<param name="data">
+        /// JSON data
+        ///</param>
         public static Dictionary<string,string> LoadDataToStringDictionary(string data)
         {
             Dictionary <string,string> dictionary = new Dictionary<string, string>();
@@ -86,15 +134,21 @@ namespace UlConnect.Logic
             }
             catch (Exception e)
             {
-                // TODO UnsuccessImportAction();
+                CallUnsucessfullImportAction("Error when tried to load text from file \n to string Dictionary");
                 Debug.WriteLine("Unsuccessful import ");
             }
             return dictionary;
         }
+        ///<summary>
+        /// Saves string dictionary into JSON file
+        ///</summary>
+        ///<param name="path">
+        /// Path inside application folder
+        ///</param>
         public static void SaveStringDictionary(Dictionary<string,string> dictionary, string path)
         {
             JsonSerializer serializer = new JsonSerializer();
-            serializer.Formatting = Formatting.Indented;
+            serializer.Formatting = Formatting.Indented; 
             TextWriter tw = new StreamWriter(String.Format("{0}{1}", AppDirectory, path));
             serializer.Serialize(tw, dictionary);
             tw.Close();

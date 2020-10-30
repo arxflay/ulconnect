@@ -15,6 +15,9 @@ namespace UlConnect.Services
         private Dictionary<string,string> database;
         
         public Dictionary<string, string> Database {get{return database;} set {this.RaiseAndSetIfChanged(ref database, database = value);}}
+        ///<summary>
+        ///Loads deserialized data from settings.json in string dictionary Database
+        ///</summary>
         public void LoadSettingsFile()
         {
             if (!File.Exists(FileOperations.AppDirectory + "settings.json"))
@@ -26,6 +29,9 @@ namespace UlConnect.Services
                 this.Database = FileOperations.LoadDataToStringDictionary(FileOperations.ReadDataFromFile("settings"));
             }
         }
+        ///<summary>
+        ///Creates settigns file with default values and keys
+        ///</summary>
         public void CreateDefaultSettingsFile()
         {
             Dictionary<string, string> settings = new Dictionary<string, string>();

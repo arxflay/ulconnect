@@ -18,7 +18,7 @@ namespace UlConnect.ViewModels
        
         public SettingsViewModel(LanguageDatabase languageDatabase, SettingsDatabase settingsDatabase, ConnectionInfoDatabase connectionInfoDatabase)
         {
-            UpdateVisual(languageDatabase);
+            UpdateSettingsVisual(languageDatabase);
             FileNames = FileOperations.GetFileNames("lang");
             if (fileNames.Contains(settingsDatabase.Database["Language"]))
             {
@@ -27,12 +27,12 @@ namespace UlConnect.ViewModels
             SaveSettingsCommand = ReactiveCommand.Create(() => {
                 settingsDatabase.ChangeParameter("Language", FileNames[selectedIndex]);
                 languageDatabase.ImportLanguage(FileNames[selectedIndex]);
-                UpdateVisual(languageDatabase);
+                UpdateSettingsVisual(languageDatabase);
                 connectionInfoDatabase.CreateConnectionText = languageDatabase.Database["CreateConnectionText"];
                 languageDatabase.SetLanguageForAllElementsInDatabase(connectionInfoDatabase.Database);
                 });
         }
-        public void UpdateVisual(LanguageDatabase languageDatabase)
+        public void UpdateSettingsVisual(LanguageDatabase languageDatabase)
         {
             Language = languageDatabase.Database["Language"];
             ReturnToMenu = languageDatabase.Database["ReturnToMenu"];

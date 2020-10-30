@@ -20,6 +20,5 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.9" />
     <PackageReference Include="websocket-sharp-with-proxy-support" Version="1.9.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <Content Include="Models\ConnectionPageVariables.cs" />
   </ItemGroup>
 </Project>

@@ -18,7 +18,6 @@ namespace UlConnect.ViewModels
 {
     public class UlConnectViewModel : ViewModelBase
     {
-        
         private object key = new object();
         private Regex rg;
         private int selectedTabIndex;
@@ -34,7 +33,7 @@ namespace UlConnect.ViewModels
             this.languageDatabase = languageDatabase;
             ConnectionInfoDatabase = new ConnectionInfoDatabase();
             //Websocket variables
-            validWebsocketAddress = String.Format(@"ws://{0}.{0}.{0}.{0}:8266", @"(1\d{2}||25[012345]||2[01234]\d||[1-9]\d||\d)");
+            validWebsocketAddress = String.Format(@"ws://{0}.{0}.{0}.{0}:8266", @"(1\d{2}||25[012345]||2[01234]\d||[1-9]\d||\d)"); //regex for valid IP
             rg = new Regex(validWebsocketAddress);
             webSockets = new SortedList<int, WebsocketWithTimer>();
             //Database configuration
@@ -66,11 +65,16 @@ namespace UlConnect.ViewModels
             SaveInfoButtonCommand = ReactiveCommand.Create(() => { ConnectionInfoDatabase.SaveInfo(SelectedIndex, "data");});
             SendSignalButtonCommand = ReactiveCommand.Create(() => SendSignal());
         }
-        //Connecting to board
-        public void Connect(object data)
+        ///<summary>
+        ///Connects to board
+        ///</summary>
+        ///<param name="data">
+        ///Data isn't used, don't enter something here
+        ///</param>
+        public void Connect(object data = null)
         {
             var index = SelectedIndex; //used to store index of current tab
-            if (rg.Match(ConnectionInfoDatabase.Database[index].Address).Value == "")
+            if (rg.Match(ConnectionInfoDatabase.Database[index].Address).Value == "") //Check if address is valid
             {
                 ConnectionInfoDatabase.Database[index].Address = "ws://192.168.0.0:8266";
                 ConnectionInfoDatabase.Database[index].PageVariables.ConnectionStatusText = "Connection: invalid ip address";
@@ -83,13 +87,13 @@ namespace UlConnect.ViewModels
                 webSockets.Add(index, new WebsocketWithTimer(ConnectionInfoDatabase.Database[index].Address));
             }
             webSockets[index].Websocket.WaitTime = new TimeSpan(0,0,5);
-            webSockets[index].Websocket.Connect();
-            webSockets[index].Websocket.Send(ConnectionInfoDatabase.Database[index].Password + "\r");
+            webSockets[index].Websocket.Connect(); //Tries to connect
+            webSockets[index].Websocket.Send(ConnectionInfoDatabase.Database[index].Password + "\r"); //Sends password which is shoud be set on esp32
                 if (webSockets[index].Websocket.ReadyState == WebSocketState.Open)
                 {              
                     ChangeConnPageVisual(index, ConnectionState.Connected);
                     webSockets[index].Websocket.Send("import ulcommands\r");
-                    webSockets[index].Websocket.OnMessage += (sender, e) => OnWebsocketMessage(sender,e,index);
+                    webSockets[index].Websocket.OnMessage += (sender, e) => OnWebsocketMessage(e,index);
                     webSockets[index].TimeoutCallback = () => WebsocketSendTimeout(index);
                     webSockets[index].CreateTimer(PowerLedCheck, index);                  
                 }
@@ -99,10 +103,20 @@ namespace UlConnect.ViewModels
                       CloseWebSocket(index);
                 }           
         }
-        public void OnWebsocketMessage(object sender, MessageEventArgs e, int index)
+        ///<summary>
+        ///Gets message from socket and checks if it's 0 or 1
+        ///Method shoud be add to OnMessage event in websocket
+        ///</summary>
+        ///<param name="messageArgs">
+        ///Used for getting messages from websocket.
+        ///</param>
+        ///<param name="index">
+        ///Index of item in websocket List
+        ///</param>
+        public void OnWebsocketMessage(MessageEventArgs messageArgs, int index)
         {
             webSockets[index].ResetElapsedTime();
-            if (e.Data == "0")
+            if (messageArgs.Data == "0")
             {
                 Debug.WriteLine("PC with " + index + " is off");
                 if (ConnectionInfoDatabase.Database[index].PageVariables.PCStatusColor != Brushes.Red)
@@ -110,7 +124,7 @@ namespace UlConnect.ViewModels
                     ChangeConnPageVisual(index, ConnectionState.PCoff);
                 }
             }
-            else if (e.Data == "1")
+            else if (messageArgs.Data == "1")
             {
                 Debug.WriteLine("PC with " + index + " is on");
                 if (ConnectionInfoDatabase.Database[index].PageVariables.PCStatusColor != Brushes.Green)
@@ -119,6 +133,9 @@ namespace UlConnect.ViewModels
                 }
             }
         }
+        ///<summary>
+        ///Method which is used for timeoutCallback for WebsocketWithTimer
+        ///</summary>
         public void WebsocketSendTimeout(int index)
         {
             ChangeConnPageVisual(index, ConnectionState.SendTimeout);
@@ -127,6 +144,12 @@ namespace UlConnect.ViewModels
             CloseWebSocket(index);
             ChangeConnPageVisual(index, ConnectionState.Disconnected);
         }
+        ///<summary>
+        ///Updates connection page visual depends on state 
+        ///</summary>
+        ///<param name="index">
+        /// Index of item in websocket List
+        ///</param>
         public void ChangeConnPageVisual(int index, ConnectionState state)
         {
             switch (state)
@@ -171,25 +194,40 @@ namespace UlConnect.ViewModels
                     break;
             }
         }
+        ///<summary>
+        ///Enables/disables PC
+        ///</summary>
         public void SendSignal()
         {
             webSockets[SelectedIndex].Websocket.Send("ulcommands.run()\r\n");
         }
-        public void PowerLedCheck(object o)
+        ///<summary>
+        ///Gets value from powerled pin
+        ///</summary>
+        ///<param name="indexObject">
+        ///Index of item in websocket List
+        ///</param>
+        public void PowerLedCheck(object indexObject)
         {
-            var index = Convert.ToInt32(o);
+            var index = Convert.ToInt32(indexObject);
             webSockets[index].Websocket.Send("ulcommands.checkpowerled()\r");
         }
         public void Disconnect(object data)
         {
             CloseWebSocket(SelectedIndex); 
         }
-        public void CloseWebSocket(int customIndex, bool check = false)
+        ///<summary>
+        ///Closes websocket and removes websocket from list
+        ///</summary>
+        ///<param name="indexInList">
+        ///Index of item in websocket List
+        ///</param>
+        public void CloseWebSocket(int indexInList, bool checkWebsocketState = false)
         {
-            int index = customIndex; //used to store index of current tab
+            int index = indexInList; //used to store index of current tab
             ChangeConnPageVisual(index, ConnectionState.PCoff);
             ChangeConnPageVisual(index, ConnectionState.Disconnecting);
-            if (check && webSockets[index].Websocket.ReadyState == WebSocketState.Open || check == false)
+            if (checkWebsocketState == true && webSockets[index].Websocket.ReadyState == WebSocketState.Open || checkWebsocketState == false) 
             {
                 lock(key)
                 {

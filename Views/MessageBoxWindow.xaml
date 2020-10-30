@@ -1,0 +1,66 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Width="300" Height="150"     
+        MinHeight="150"
+        MaxHeight="150"
+        MaxWidth="300"
+        MinWidth="300"
+           
+        Background="{DynamicResource WindowBackgroundColor}"
+        x:Class="UlConnect.MessageBoxWindow"
+        Name="MsgboxWindow"
+        Title="{Binding Title}">
+  <Window.Resources>
+    <SolidColorBrush x:Key="UITextBoxColor">#343436</SolidColorBrush>
+    <FontFamily x:Key="UIAppFont">Courier New</FontFamily>
+    <SolidColorBrush x:Key="ButtonBarColor">#353434</SolidColorBrush>
+    <SolidColorBrush x:Key="UIButtonColor">#8E6D00</SolidColorBrush>
+    <SolidColorBrush x:Key="UIPointeroverButtonColor">#C79900</SolidColorBrush>
+    <SolidColorBrush x:Key="WindowBackgroundColor">#252526</SolidColorBrush>
+    <SolidColorBrush x:Key="FontColor">#DBDBDB</SolidColorBrush>
+    <SolidColorBrush x:Key="SelectedFontColor">Black</SolidColorBrush>
+    </Window.Resources>
+  <Window.Styles>
+    <Style Selector="Button">
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Foreground" Value="{DynamicResource FontColor}"/>
+    </Style>
+    <Style Selector="TextBlock.UITextBlock">
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="FontFamily" Value="{StaticResource UIAppFont}"/>
+      <Setter Property="Foreground" Value="{DynamicResource FontColor}"/>
+    </Style>
+    <Style Selector="Button.UIButton">
+      <Setter Property="FontSize" Value="14" />
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="BorderBrush" Value="Black"/>
+      <Setter Property="Background" Value="{DynamicResource UIButtonColor}"/>
+    </Style>
+    <Style Selector="Button.UIButton > TextBlock">
+      <Setter Property="Margin" Value="5,5"/>
+    </Style>
+    <Style Selector="Button.UIButton:pressed /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource UIPointeroverButtonColor}"/>
+    </Style>
+    <Style Selector="Button.UIButton:focus">
+      <Setter Property="Background" Value="{DynamicResource UIButtonColor}"/>
+    </Style>
+    <Style Selector="Button.UIButton:pointerover">
+      <Setter Property="Background" Value="{DynamicResource UIPointeroverButtonColor}"/>
+      <Setter Property="Foreground" Value="{DynamicResource SelectedFontColor}"/>
+    </Style>
+    <Style Selector="Button.UIButton:pointerover /template/ ContentPresenter">
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="BorderBrush" Value="Black"/>
+    </Style>
+  </Window.Styles>
+  <Grid >
+    <TextBlock Classes="UITextBlock"  HorizontalAlignment="Left" Margin="4,4"  VerticalAlignment="Top" Text="{Binding Message}"></TextBlock>
+    <Canvas HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0" Height="49" Width="{Binding Width, ElementName=MsgboxWindow}" Background="{DynamicResource ButtonBarColor}">
+     </Canvas>
+    <Button Classes="UIButton" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="104,4" Command="{Binding ExitButtonCommand}">Close</Button>
+    <Button Classes="UIButton"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4,4" Command="{Binding CloseButtonCommand}">Continue</Button>
+  </Grid>
+</Window>

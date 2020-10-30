@@ -6,25 +6,44 @@
              x:Class="UlConnect.Pages.ConnectionPage"
              HorizontalAlignment="Left" VerticalAlignment="Top">
     <ScrollViewer>
-   <Grid Name="ConnectionPanel" HorizontalAlignment="Left" VerticalAlignment="Top" ColumnDefinitions="Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"> <!--Invisible -->           
-        <TextBlock Grid.Row="0" Classes="UITextBlock"  HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="9,12" Text="{Binding PageVariables.ConnectionName}"></TextBlock>
-        <TextBox Grid.Row="0" Classes="UITextBox" Width="300" MaxLength="17" VerticalAlignment="Top"  Margin="185,10" Text="{Binding Name}"> </TextBox>
-        <TextBlock Grid.Row="1" Classes="UITextBlock"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="9,2" Text="{Binding PageVariables.BoardAddress}"></TextBlock>
-        <TextBox Grid.Row="1" Classes="UITextBox" HorizontalAlignment="Left" Width="300" VerticalAlignment="Top"  Margin="185,0" IsEnabled="{Binding !PageVariables.IsConnected}" Text="{Binding Address}"> </TextBox>
-        <TextBlock Grid.Row="2" Classes="UITextBlock" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="9,14" Text="{Binding PageVariables.Password}"></TextBlock>
-        <TextBox PasswordChar="*" Grid.Row="2" Classes="UITextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Margin="185,10" IsEnabled="{Binding !PageVariables.IsConnected}" Text="{Binding Password}"> </TextBox>
-        <Button  Grid.Row="3" Classes="UIButton" Name="SaveButton" Command="{Binding Path=$parent[Window].Content.SaveInfoButtonCommand}"  Margin="9,4" HorizontalAlignment="Left" VerticalAlignment="Top" Content="{Binding PageVariables.SaveInfoBtn}"></Button>
+   <Grid Name="ConnectionPanel" HorizontalAlignment="Left" VerticalAlignment="Top" ColumnDefinitions="Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">       
+        <TextBlock Grid.Row="0" Classes="UITextBlock"  HorizontalAlignment="Left"  VerticalAlignment="Top" 
+                    Margin="9,12" Text="{Binding PageVariables.ConnectionName}"/>
+        <TextBox Grid.Row="0" Classes="UITextBox" Width="300" MaxLength="17" VerticalAlignment="Top"  
+                    Margin="185,10" Text="{Binding Name}"/>
+        <TextBlock Grid.Row="1" Classes="UITextBlock"  HorizontalAlignment="Left" VerticalAlignment="Top" 
+                    Margin="9,2" Text="{Binding PageVariables.BoardAddress}"/>
+        <TextBox Grid.Row="1" Classes="UITextBox" HorizontalAlignment="Left" Width="300" VerticalAlignment="Top"  
+                    Margin="185,0" IsEnabled="{Binding !PageVariables.IsConnected}" Text="{Binding Address}"/>
+        <TextBlock Grid.Row="2" Classes="UITextBlock" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                    Margin="9,14" Text="{Binding PageVariables.Password}"/>
+        <TextBox PasswordChar="*" Grid.Row="2" Classes="UITextBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" 
+                    Margin="185,10" IsEnabled="{Binding !PageVariables.IsConnected}" Text="{Binding Password}"/>
+        <Button  Grid.Row="3" Classes="UIButton" Name="SaveButton" 
+                    Command="{Binding Path=$parent[Window].Content.SaveInfoButtonCommand}"  Margin="9,4" 
+                    Content="{Binding PageVariables.SaveInfoBtn}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Canvas  Grid.Row="4" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="9,26"> 
             <Ellipse Width="15" Height="15" Fill="{Binding PageVariables.ConnectionStatusColor}" Stroke="Black" StrokeThickness="1"/> 
         </Canvas>
-        <TextBlock Grid.Row="4" Classes="UITextBlock" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="30,26" Text="{Binding PageVariables.ConnectionStatusText}"></TextBlock>
-        <Button Grid.Row="5" Classes="UIButton" Name="ConnectButton" Command="{Binding Path=$parent[Window].Content.ConnectButtonCommand}"  Margin="9,0" HorizontalAlignment="Left" IsEnabled="{Binding !PageVariables.IsConnected}" Content="{Binding PageVariables.ConnectBtn}" VerticalAlignment="Top" ></Button>
-        <Button Grid.Row="5" Classes="UIButton" Name="DisconnectButton" Command="{Binding Path=$parent[Window].Content.DisconnectButtonCommand}"  Margin="150,0" HorizontalAlignment="Left" IsEnabled="{Binding PageVariables.EnableDisconnectButton}" Content="{Binding PageVariables.DisconnectBtn}" VerticalAlignment="Top" ></Button>
+        <TextBlock Grid.Row="4" Classes="UITextBlock" HorizontalAlignment="Left" VerticalAlignment="Top"  
+                    Margin="30,26" Text="{Binding PageVariables.ConnectionStatusText}"/>
+        <Button Grid.Row="5" Classes="UIButton" Name="ConnectButton" 
+                    Command="{Binding Path=$parent[Window].Content.ConnectButtonCommand}"  Margin="9,0" 
+                    Content="{Binding PageVariables.ConnectBtn}" IsEnabled="{Binding !PageVariables.IsConnected}" 
+                    HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button Grid.Row="5" Classes="UIButton" Name="DisconnectButton" 
+                    Command="{Binding Path=$parent[Window].Content.DisconnectButtonCommand}"  Margin="150,0" 
+                    Content="{Binding PageVariables.DisconnectBtn}" IsEnabled="{Binding PageVariables.EnableDisconnectButton}" 
+                    HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Canvas  Grid.Row="6" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="9,26"> 
             <Ellipse Width="15" Height="15" Fill="{Binding PageVariables.PCStatusColor}" Stroke="Black" StrokeThickness="1"/> 
         </Canvas>
-        <TextBlock Grid.Row="6" Classes="UITextBlock" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="30,26" Text="{Binding PageVariables.PCStatusText}"></TextBlock>
-        <Button Grid.Row="7" Classes="UIButton" Name="TurnPCButton" Command="{Binding Path=$parent[Window].Content.SendSignalButtonCommand}"  Margin="9,0" HorizontalAlignment="Left" IsEnabled="{Binding PageVariables.EnableDisconnectButton}" Content="{Binding PageVariables.TurnPConoffBtn}"  VerticalAlignment="Top" ></Button>
+        <TextBlock Grid.Row="6" Classes="UITextBlock" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="30,26" 
+                    Text="{Binding PageVariables.PCStatusText}"/>
+        <Button Grid.Row="7" Classes="UIButton" Name="TurnPCButton" 
+                    Command="{Binding Path=$parent[Window].Content.SendSignalButtonCommand}" Margin="9,0" 
+                    Content="{Binding PageVariables.TurnPConoffBtn}" IsEnabled="{Binding PageVariables.EnableDisconnectButton}" 
+                    HorizontalAlignment="Left" VerticalAlignment="Top"/>
     </Grid>
     </ScrollViewer>
 </UserControl>

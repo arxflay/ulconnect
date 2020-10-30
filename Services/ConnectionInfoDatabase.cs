@@ -12,9 +12,9 @@ namespace UlConnect.Services
             IsDatabaseEmpty = true;
         }
         private bool isDatabaseEmpty;
-        private string ceateConnectionText;
+        private string createConnectionText;
         private ObservableCollection<ConnectionInfoItem> database;
-        public string CreateConnectionText {get {return ceateConnectionText;}set {this.RaiseAndSetIfChanged(ref ceateConnectionText, value);}}
+        public string CreateConnectionText {get {return createConnectionText;}set {this.RaiseAndSetIfChanged(ref createConnectionText, value);}}
         public ObservableCollection<ConnectionInfoItem> Database {get {return database;} set{this.RaiseAndSetIfChanged(ref database, value);}}
         public bool IsDatabaseEmpty {get {return isDatabaseEmpty;} set { this.RaiseAndSetIfChanged(ref isDatabaseEmpty, value);}}
         public void ImportDatabaseFromFile(string filename)

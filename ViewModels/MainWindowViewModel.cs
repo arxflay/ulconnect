@@ -1,7 +1,8 @@
 ﻿using UlConnect.Services;
 using System.Collections.ObjectModel;
 using ReactiveUI;
-
+using UlConnect.Views;
+using UlConnect.Logic;
 using UlConnect.Models;
 namespace UlConnect.ViewModels
 {
@@ -12,6 +13,7 @@ namespace UlConnect.ViewModels
         private LanguageDatabase languageDatabase;
         public MainWindowViewModel()
         {
+
             languageDatabase = new LanguageDatabase();
             settingsDatabase = new SettingsDatabase();
             //Importing settings   

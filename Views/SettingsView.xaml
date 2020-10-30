@@ -6,11 +6,14 @@
              x:Class="UlConnect.Views.SettingsView">
     <Grid Background="{DynamicResource NavColor}">
         <Canvas  Background="{DynamicResource WindowBackgroundColor}"  Name="TabControlCanvas" HorizontalAlignment="Left" Width="250"></Canvas>
-        <TextBlock Classes="UITextBlock" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4,14" Text="{Binding Language}"></TextBlock>
-        <ComboBox Classes="UIComboBox" Width="146" HorizontalAlignment="Left" SelectedIndex="{Binding SelectedIndex}" VerticalAlignment="Top"  Items="{Binding FileNames}" Margin="100,10">         
-        </ComboBox>
-        <Button Classes="UIButton" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="{Binding ReturnToMenu}" Width="146" Margin="4,4" Command="{Binding ReturnToMenuCommand}">Return to menu</Button>
-        <Button Classes="UIButton" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="94" Margin="152,4" Content="{Binding Save}" Command="{Binding SaveSettingsCommand}">Save</Button>
+        <TextBlock Classes="UITextBlock" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                    Margin="4,14" Text="{Binding Language}"></TextBlock>
+        <ComboBox Classes="UIComboBox" Width="146" HorizontalAlignment="Left" SelectedIndex="{Binding SelectedIndex}" 
+                    VerticalAlignment="Top"  Items="{Binding FileNames}" Margin="100,10"/>
+        <Button Classes="UIButton" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="{Binding ReturnToMenu}" 
+                    Width="146" Margin="4,4" Command="{Binding ReturnToMenuCommand}"/>
+        <Button Classes="UIButton" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="94" 
+                    Margin="152,4" Content="{Binding Save}" Command="{Binding SaveSettingsCommand}"/>
         <TextBlock Classes="UITextBlock" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4,4">
             Application is made by arxflay 2020
         </TextBlock>

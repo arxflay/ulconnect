@@ -22,7 +22,6 @@ namespace UlConnect
                 {
                      DataContext = context
                 };
-                //Connecting variables with functions from MainWindow
                 desktop.MainWindow = window;
             }
 

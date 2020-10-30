@@ -23,19 +23,12 @@ namespace UlConnect.Models
             connectionStatusColor = Brushes.Red;
             pcStatusColor = Brushes.Red;
         }
+
         private bool enableDisconnectButton;
         private IBrush connectionStatusColor;
         private IBrush pcStatusColor;
         private bool isConnected;
-        private string connectionStatusText;
-        private string pcStatusText;
-        private string connectionName;
-        private string boardAddress;
-        private string password;
-        private string saveInfoBtn;
-        private string connectionBtn;
-        private string disconnectBtn;
-        private string turnPConoffBtn;
+        private string connectionStatusText, pcStatusText, connectionName, boardAddress, password, saveInfoBtn, connectionBtn, disconnectBtn, turnPConoffBtn;
         public ConnectionState ConnState {get; set;}
         public string ConnectionName {get {return connectionName;} set {this.RaiseAndSetIfChanged(ref connectionName, value);}}
         public string BoardAddress{get {return boardAddress;} set {this.RaiseAndSetIfChanged(ref boardAddress, value);}}
@@ -50,6 +43,12 @@ namespace UlConnect.Models
         public IBrush ConnectionStatusColor {get {return connectionStatusColor;} set{this.RaiseAndSetIfChanged(ref connectionStatusColor, value);} }
         public IBrush PCStatusColor {get {return pcStatusColor;} set{this.RaiseAndSetIfChanged(ref pcStatusColor, value);} }
         public string PCStatusText {get {return pcStatusText;} set{this.RaiseAndSetIfChanged(ref pcStatusText, value);} }
+        ///<summary>
+        ///Sets language for string page variables
+        ///</summary>
+        ///<param ="langLines">
+        ///Dictionary which contains language lines (sentences, words)
+        ///</param>
         public void SetLanguage(Dictionary<string,string> langLines)
         {
             ConnectionName = langLines["ConnectionName"];

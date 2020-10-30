@@ -41,13 +41,15 @@
         <!--ConnectionPanel blocks-->
         <Grid Margin="259,0" IsVisible="{Binding ConnectionInfoDatabase.IsDatabaseEmpty}" >
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Classes="IndividualTextBlock" Name="SelectConnectionTblock" Width="548"  FontFamily="Courier New" FontSize="28" Text="{Binding ConnectionInfoDatabase.CreateConnectionText}"></TextBlock>
+                <TextBlock Classes="IndividualTextBlock" Name="SelectConnectionTblock" Width="548"  FontFamily="Courier New" 
+                            FontSize="28" Text="{Binding ConnectionInfoDatabase.CreateConnectionText}"/>
             </StackPanel>
         </Grid>
         <!--Navigationbar blocks-->
         <Canvas  Background="{DynamicResource NavColor}"  Name="TabControlCanvas" HorizontalAlignment="Left" Width="250"></Canvas>
         <ScrollViewer>
-        <TabControl Margin="0" TabStripPlacement="Left" Name="TabPanel" Items="{Binding ConnectionInfoDatabase.Database}" SelectedIndex="{Binding SelectedIndex}" HorizontalAlignment="Left" VerticalAlignment="Top" >     
+        <TabControl Margin="0" TabStripPlacement="Left" Name="TabPanel" Items="{Binding ConnectionInfoDatabase.Database}" 
+                        SelectedIndex="{Binding SelectedIndex}" HorizontalAlignment="Left" VerticalAlignment="Top" >     
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding Name}">
@@ -62,7 +64,8 @@
         </TabControl>
         </ScrollViewer>
        <Canvas HorizontalAlignment="Left" Background="{DynamicResource NavButtonsBarColor}" VerticalAlignment="Bottom"  Width="250" Height="50">
-            <Button Command="{Binding AddItemButtonCommand}" Classes="NavButton" Margin="4,4" Height="42" Width="42"  HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button Command="{Binding AddItemButtonCommand}" Classes="NavButton" Margin="4,4" 
+                        Height="42" Width="42"  HorizontalAlignment="Left" VerticalAlignment="Top">
             <!--Background-->
                 <Canvas Height="42" Width="42" >
                     <Ellipse StrokeThickness="2" Width="42" Height="42"  />
@@ -70,14 +73,16 @@
                     <Line StartPoint="21,6" EndPoint="21,36" StrokeThickness="5"/>
                 </Canvas>
             </Button>
-            <Button Command="{Binding $parent[Window].DataContext.OpenSettingsMenu}" Classes="NavButton" Margin="104,4" Height="42" Width="42"  HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button Command="{Binding $parent[Window].DataContext.OpenSettingsMenu}" Classes="NavButton" 
+                    Margin="104,4" Height="42" Width="42"  HorizontalAlignment="Left" VerticalAlignment="Top">
             <!--Background-->
                 <Canvas Height="42" Width="42" >
                     <Ellipse StrokeThickness="2" Width="42" Height="42"  />
                     <Ellipse StrokeThickness="2" Width="6" Height="6" Margin="19,19"  />
                 </Canvas>
             </Button>
-            <Button Command="{Binding RemoveItemButtonCommand}" Classes="NavButton"  Margin="204,4" Width="42" Height="42" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button Command="{Binding RemoveItemButtonCommand}" Classes="NavButton"  Margin="204,4" 
+                        Width="42" Height="42" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Canvas Height="42" Width="42" Background="Transparent">
                 <Ellipse Height="42" Width="42" StrokeThickness="2"/>
                 <Line StartPoint="6,21" EndPoint="36,21" StrokeThickness="2"/>

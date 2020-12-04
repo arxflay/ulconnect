@@ -20,9 +20,9 @@
                 <Setter Property="Foreground" Value="{DynamicResource FontColor}"/>
                 <Setter Property="HorizontalAlignment" Value="Left"/>
                 <Setter Property="VerticalAlignment" Value="Top"/>
-                <Setter Property="Height" Value="50"/>
+                <Setter Property="Height" Value="44"/>
                 <Setter Property="Width" Value = "{Binding Width, ElementName=TabControlCanvas}"/>
-                <Setter Property="FontSize" Value="23"/>
+                <Setter Property="FontSize" Value="20"/>
             </Style>
             <Style Selector="TabControl > TabItem:pointerover">
                 <Setter Property="Background" Value="{DynamicResource PointeroverTabColor}"/>
@@ -46,9 +46,11 @@
             </StackPanel>
         </Grid>
         <!--Navigationbar blocks-->
-        <Canvas  Background="{DynamicResource NavColor}"  Name="TabControlCanvas" HorizontalAlignment="Left" Width="250"></Canvas>
+        <Canvas  Background="{DynamicResource NavColor}"  Name="TabControlCanvas" HorizontalAlignment="Left" Width="200">
+            <Line StartPoint="0,1" EndPoint="200,1" Stroke="Black" StrokeThickness="0.3"/>
+        </Canvas>
         <ScrollViewer>
-        <TabControl Margin="0" TabStripPlacement="Left" Name="TabPanel" Items="{Binding ConnectionInfoDatabase.Database}" 
+        <TabControl Margin="0" TabStripPlacement="Left"  Name="TabPanel" Items="{Binding ConnectionInfoDatabase.Database}" 
                         SelectedIndex="{Binding SelectedIndex}" HorizontalAlignment="Left" VerticalAlignment="Top" >     
             <TabControl.ItemTemplate>
                 <DataTemplate>
@@ -63,29 +65,29 @@
 			</TabControl.ContentTemplate>
         </TabControl>
         </ScrollViewer>
-       <Canvas HorizontalAlignment="Left" Background="{DynamicResource NavButtonsBarColor}" VerticalAlignment="Bottom"  Width="250" Height="50">
-            <Button Command="{Binding AddItemButtonCommand}" Classes="NavButton" Margin="4,4" 
-                        Height="42" Width="42"  HorizontalAlignment="Left" VerticalAlignment="Top">
+       <Canvas HorizontalAlignment="Left" Background="{DynamicResource NavButtonsBarColor}" VerticalAlignment="Bottom"  Width="200" Height="50">
+            <Button Command="{Binding AddItemButtonCommand}" Classes="NavButton" Margin="4,5" 
+                        Height="40" Width="40"  HorizontalAlignment="Left" VerticalAlignment="Top">
             <!--Background-->
-                <Canvas Height="42" Width="42" >
-                    <Ellipse StrokeThickness="2" Width="42" Height="42"  />
-                    <Line StartPoint="6,21" EndPoint="36,21" StrokeThickness="5"/>
-                    <Line StartPoint="21,6" EndPoint="21,36" StrokeThickness="5"/>
+                <Canvas Height="40" Width="40" >
+                    <Ellipse StrokeThickness="2" Width="40" Height="40"  />
+                    <Line StartPoint="5,20" EndPoint="35,20" StrokeThickness="3"/>
+                    <Line StartPoint="20,5" EndPoint="20,35" StrokeThickness="3"/>
                 </Canvas>
             </Button>
-            <Button Command="{Binding $parent[Window].DataContext.OpenSettingsMenu}" Classes="NavButton" 
-                    Margin="104,4" Height="42" Width="42"  HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button Command="{Binding $parent[Window].DataContext.OpenSettingsMenu}" IsVisible="True" Classes="NavButton" 
+                    Margin="80,5" Height="40" Width="40"  HorizontalAlignment="Left" VerticalAlignment="Top">
             <!--Background-->
-                <Canvas Height="42" Width="42" >
-                    <Ellipse StrokeThickness="2" Width="42" Height="42"  />
-                    <Ellipse StrokeThickness="2" Width="6" Height="6" Margin="19,19"  />
+                <Canvas Height="40" Width="40" >
+                    <Ellipse StrokeThickness="2" Width="40" Height="40"  />
+                    <Ellipse StrokeThickness="2" Width="6" Height="6" Margin="18,18"  />
                 </Canvas>
             </Button>
-            <Button Command="{Binding RemoveItemButtonCommand}" Classes="NavButton"  Margin="204,4" 
-                        Width="42" Height="42" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Canvas Height="42" Width="42" Background="Transparent">
-                <Ellipse Height="42" Width="42" StrokeThickness="2"/>
-                <Line StartPoint="6,21" EndPoint="36,21" StrokeThickness="2"/>
+            <Button Command="{Binding RemoveItemButtonCommand}" Classes="NavButton"  Margin="154,5" 
+                        Width="40" Height="40" Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Canvas Height="40" Width="40" Background="Transparent">
+                    <Ellipse Height="40" Width="40" StrokeThickness="2"/>
+                    <Line StartPoint="6,21" EndPoint="34,21" StrokeThickness="2"/>
                 </Canvas>         
             </Button>
         </Canvas>

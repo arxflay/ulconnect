@@ -22,7 +22,7 @@
         <SolidColorBrush x:Key="UIButtonColor">#8E6D00</SolidColorBrush>
         <SolidColorBrush x:Key="UIPointeroverButtonColor">#C79900</SolidColorBrush>
         <SolidColorBrush x:Key="WindowBackgroundColor">#252526</SolidColorBrush>
-        <SolidColorBrush x:Key="NavColor">#353434</SolidColorBrush>
+        <SolidColorBrush x:Key="NavColor">#353535</SolidColorBrush>
         <SolidColorBrush x:Key="NavButtonsBarColor">#464646</SolidColorBrush>
         <SolidColorBrush x:Key="NavButtonColor">#B6B6B6</SolidColorBrush>
         <SolidColorBrush x:Key="DataButtonColor">#929292 </SolidColorBrush>

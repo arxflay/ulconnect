@@ -26,7 +26,7 @@ namespace UlConnect.Services
             "Error",
             "Disconnecting",
             "Disconnected",
-            "SendTimeout",
+            "ConnectionTimeout",
             "PCOff",
             "PCOn",
             //For UlConnect
@@ -72,7 +72,7 @@ namespace UlConnect.Services
             lang["Error"] = "Connection: invalid ip address";
             lang["Disconnecting"] = "Connection: disconnecting...";
             lang["Disconnected"] = "Connection: disconnected";
-            lang["SendTimeout"] = "Connection: Send timeout, disconnecting...";
+            lang["ConnectionTimeout"] = "Connection: Send timeout, disconnecting...";
             lang["PCOff"] = "PC: off";
             lang["PCOn"] = "PC: on";
             //For UlConnect

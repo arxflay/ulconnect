@@ -79,8 +79,8 @@ namespace UlConnect.Services
             lang["CreateConnectionText"] = "Click on + to add new connection";
             //For Settings
             lang["Language"] = "Language";
-            lang["ReturnToMenu"] = "Return to menu"; //Вернуться в меню
-            lang["Save"] = "Save"; //Сохранить
+            lang["ReturnToMenu"] = "Return to menu"; 
+            lang["Save"] = "Save"; 
             this.Database = lang;
             JsonSerializer serializer = new JsonSerializer();
             serializer.Formatting = Formatting.Indented;

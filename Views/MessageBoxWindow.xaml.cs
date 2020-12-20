@@ -33,9 +33,9 @@ namespace UlConnect
         }
         public MessageBoxWindow()
         {
-
+            
         }
-        public MessageBoxWindow(bool closeApp = false)
+        protected MessageBoxWindow(bool closeApp = false)
         {
             InitializeComponent();
             CloseApp = closeApp;

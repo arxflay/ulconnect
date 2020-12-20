@@ -19,10 +19,31 @@ namespace UlConnect.ViewModels
         public SettingsViewModel(LanguageDatabase languageDatabase, SettingsDatabase settingsDatabase, ConnectionInfoDatabase connectionInfoDatabase)
         {
             UpdateSettingsVisual(languageDatabase);
-            FileNames = FileOperations.GetFileNames("lang");
-            if (fileNames.Contains(settingsDatabase.Database["Language"]))
+            FileNames = FileOperations.GetFileNames("lang", arr => {
+                if (arr.Length > 1)
+                {
+                    if (arr[1] == "json")
+                    {
+                        return true;
+                    }
+                }
+                return false;
+                });
+            if (FileNames.Count == 0)
             {
-                selectedIndex = FileNames.IndexOf(settingsDatabase.Database["Language"]);
+                FileOperations.AddUnsucessfullImportTask("Missing language files in \nlang folder");
+                FileOperations.UnsuccessImportTaskStack.Pop().Start();
+            }
+            if (settingsDatabase.Database.ContainsKey("Language"))
+            {
+                if (fileNames.Contains(settingsDatabase.Database["Language"]))
+                {
+                    selectedIndex = FileNames.IndexOf(settingsDatabase.Database["Language"]);
+                }
+            }
+            else
+            {
+                selectedIndex = 0;
             }
             SaveSettingsCommand = ReactiveCommand.Create(() => {
                 settingsDatabase.ChangeParameter("Language", FileNames[selectedIndex]);

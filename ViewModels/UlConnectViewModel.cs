@@ -33,7 +33,7 @@ namespace UlConnect.ViewModels
             this.languageDatabase = languageDatabase;
             ConnectionInfoDatabase = new ConnectionInfoDatabase();
             //Websocket variables
-            validWebsocketAddress = String.Format(@"ws://{0}.{0}.{0}.{0}:8266", @"(1\d{2}||25[012345]||2[01234]\d||[1-9]\d||\d)"); //regex for valid IP
+            validWebsocketAddress = String.Format(@"ws://{0}.{0}.{0}.{0}:8266", @"(\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])"); //regex for valid IP
             rg = new Regex(validWebsocketAddress);
             webSockets = new SortedList<int, WebsocketWithTimer>();
             //Database configuration
@@ -192,6 +192,7 @@ namespace UlConnect.ViewModels
                     ConnectionInfoDatabase.Database[index].PageVariables.PCStatusColor = Brushes.Green;
                     ConnectionInfoDatabase.Database[index].PageVariables.PCStatusText = languageDatabase.Database["PCOn"];
                     break;
+                    
             }
         }
         ///<summary>

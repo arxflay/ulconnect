@@ -78,9 +78,8 @@
             <Button Command="{Binding $parent[Window].DataContext.OpenSettingsMenu}" IsVisible="True" Classes="NavButton" 
                     Margin="80,5" Height="40" Width="40"  HorizontalAlignment="Left" VerticalAlignment="Top">
             <!--Background-->
-                <Canvas Height="40" Width="40" >
-                    <Ellipse StrokeThickness="2" Width="40" Height="40"  />
-                    <Ellipse StrokeThickness="2" Width="6" Height="6" Margin="18,18"  />
+                <Canvas Height="40" Width="25" >
+                    <Polyline StrokeThickness="1"  Points="0,0 0,15 10,15 10,40 15,40 15,15 25,15 25,0 20,0 20,10 5,10 5,0 0,0"/>
                 </Canvas>
             </Button>
             <Button Command="{Binding RemoveItemButtonCommand}" Classes="NavButton"  Margin="154,5" 

@@ -8,6 +8,7 @@ using UlConnect.Models;
 using System.Windows.Input;
 using UlConnect.Logic;
 using System;
+
 using UlConnect.ViewModels;
 namespace UlConnect.Views
 {
@@ -16,8 +17,14 @@ namespace UlConnect.Views
         public static bool IsWindowLoaded {get; set;}
         public MainWindow()
         {
-            FileOperations.UnsuccessImportAction = this.UnsuccessImportAction;
-            this.Initialized += (sender, e) => {MainWindow.IsWindowLoaded = true;};
+            FileOperations.UnsucessImportAction = this.UnsuccessImportAction;
+            this.Initialized += (sender, e) => {
+                for (int i = 0; i < FileOperations.UnsuccessImportTaskStack.Count; i++)
+                {
+                    var task = FileOperations.UnsuccessImportTaskStack.Pop();
+                    task.Start();               
+                }            
+            };
             this.Closed += (e,sender) => {Environment.Exit(0);};
             InitializeComponent(); 
         }
@@ -27,7 +34,7 @@ namespace UlConnect.Views
             //Shows MessageBoxWindow in UIThread (used for calling methods from threads)
             Avalonia.Threading.Dispatcher.UIThread.InvokeAsync(() =>
             {
-                MessageBoxWindow msgbox = MessageBoxWindow.CreateMessageBox("Error", errorMessage, true);
+                MessageBoxWindow msgbox = MessageBoxWindow.CreateMessageBox("Error", errorMessage);
                 msgbox.ShowDialog(this); //ShowDialog - used for blocking gui
             });
         }

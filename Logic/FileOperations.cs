@@ -4,31 +4,31 @@ using Newtonsoft.Json;
 using System;
 using UlConnect.Views;
 using Avalonia.Controls.ApplicationLifetimes;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 namespace UlConnect.Logic
 {
     public static class FileOperations
     {
-        public static Action<string> UnsuccessImportAction {get; set;} //function which is called when occurs error while import something        
+        public static Action<string> UnsucessImportAction {get; set;} //function which is called when occurs error while import something        
+        public static Stack<Task> UnsuccessImportTaskStack = new Stack<Task>();
         public static string AppDirectory {get {return AppDomain.CurrentDomain.BaseDirectory;}} //Directory where is stored app (compiled)
         ///<summary>
-        ///Check if MainWindow's loaded until MainWindow's loaded and then calls UnsuccessImportAction.
+        ///Adds unsuccess import tasks in tasks stack.
         ///</summary>
         ///<param name="error">
         ///Error text
         ///</param>
-        public static void CallUnsucessfullImportAction(string error)
-        {  
-            ThreadPool.QueueUserWorkItem(o =>
-            {
-                while (!MainWindow.IsWindowLoaded) {
-                    Thread.Sleep(100);
-                };
-                UnsuccessImportAction(error);
+        public static void AddUnsucessfullImportTask(string error)
+        {
+            Task task = new Task(() => {
+                UnsucessImportAction(error);
             });
+            UnsuccessImportTaskStack.Push(task);
         }
         ///<summary>
         ///Reads data from file and return string data
@@ -49,11 +49,12 @@ namespace UlConnect.Logic
                 }
                 catch (Exception e)
                 {
-                    CallUnsucessfullImportAction("Error when read file");
+                    AddUnsucessfullImportTask("Error when read file");
                 }
                 finally
                 {
                     tr.Close();
+                    tr.Dispose();
                 }
             }
             return data;
@@ -77,7 +78,7 @@ namespace UlConnect.Logic
             }
             catch (Exception e)
             {
-                CallUnsucessfullImportAction("data.json file is corrupted");
+                AddUnsucessfullImportTask("data.json file is corrupted");
             }
             return database;
         }
@@ -94,6 +95,8 @@ namespace UlConnect.Logic
             TextWriter tw = new StreamWriter(AppDirectory + filename + ".json");
             serializer.Serialize(tw, database);
             tw.Close();
+            tw.Dispose();
+            
         }
         ///<summary>
         /// Gets all file names in folder and returns string List with file names without extentension
@@ -101,7 +104,7 @@ namespace UlConnect.Logic
         ///<param name="path">
         /// Path inside application folder
         ///</param>
-        public static List<string> GetFileNames(string path)
+        public static List<string> GetFileNames(string path, Func<string[], bool> cmp = null)
         {
             List<string> names = new List<string>();
             if (Directory.Exists(AppDirectory + path))
@@ -110,7 +113,15 @@ namespace UlConnect.Logic
                 FileInfo[] files = dr.GetFiles();
                 foreach (var fileinfo in files)
                 {
-                    names.Add(fileinfo.Name.Split('.')[0]);
+                    var filename = fileinfo.Name.Split('.');
+                    if (cmp != null)
+                    {
+                         if (cmp(filename)) names.Add(filename[0]);
+                    }
+                    else
+                    {
+                        names.Add(filename[0]);
+                    }
                 }
             }
             return names;
@@ -134,7 +145,7 @@ namespace UlConnect.Logic
             }
             catch (Exception e)
             {
-                CallUnsucessfullImportAction("Error when tried to load text from file \n to string Dictionary");
+                AddUnsucessfullImportTask("Error when tried to load text\nfrom file to string Dictionary");
                 Debug.WriteLine("Unsuccessful import ");
             }
             return dictionary;
@@ -152,6 +163,7 @@ namespace UlConnect.Logic
             TextWriter tw = new StreamWriter(String.Format("{0}{1}", AppDirectory, path));
             serializer.Serialize(tw, dictionary);
             tw.Close();
+            tw.Dispose();
         }
         
     }

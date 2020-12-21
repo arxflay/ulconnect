@@ -2,13 +2,9 @@ using System.IO;
 using UlConnect.Models;
 using Newtonsoft.Json;
 using System;
-using UlConnect.Views;
-using Avalonia.Controls.ApplicationLifetimes;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 namespace UlConnect.Logic
 {
@@ -16,6 +12,16 @@ namespace UlConnect.Logic
     {
         public static Action<string> UnsucessImportAction {get; set;} //function which is called when occurs error while import something        
         public static Stack<Task> UnsuccessImportTaskStack = new Stack<Task>();
+        public static Func<string[], bool> IsJsonChecker = arr => {
+                if (arr.Length > 1)
+                {
+                    if (arr[1] == "json")
+                    {
+                        return true;
+                    }
+                }
+                return false;
+                };
         public static string AppDirectory {get {return AppDomain.CurrentDomain.BaseDirectory;}} //Directory where is stored app (compiled)
         ///<summary>
         ///Adds unsuccess import tasks in tasks stack.

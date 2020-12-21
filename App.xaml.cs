@@ -3,7 +3,6 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using UlConnect.ViewModels;
 using UlConnect.Views;
-
 namespace UlConnect
 {
     public class App : Application

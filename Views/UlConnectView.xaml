@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:pages="clr-namespace:UlConnect.Pages"
+             
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              Name="MyWindow"
              x:Class="UlConnect.Views.UlConnectView">
@@ -37,11 +38,14 @@
             <Style Selector="TabControl TabItem:pressed">
                 <Setter Property="Foreground" Value="{DynamicResource SelectedFontColor}"/>
             </Style>
+            <Style Selector="ScrollBar:vertical /template/ Thumb#thumb">
+                <Setter Property="Background" Value="Gray"/>
+            </Style>
         </Grid.Styles>
         <!--ConnectionPanel blocks-->
-        <Grid Margin="259,0" IsVisible="{Binding ConnectionInfoDatabase.IsDatabaseEmpty}" >
+        <Grid Margin="230,0" IsVisible="{Binding ConnectionInfoDatabase.IsDatabaseEmpty}" >
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Classes="IndividualTextBlock" Name="SelectConnectionTblock" Width="548"  FontFamily="Courier New" 
+                <TextBlock HorizontalAlignment="Center" Classes="IndividualTextBlock" Name="SelectConnectionTblock" Width="548"  FontFamily="Courier New" 
                             FontSize="28" Text="{Binding ConnectionInfoDatabase.CreateConnectionText}"/>
             </StackPanel>
         </Grid>
@@ -49,7 +53,6 @@
         <Canvas  Background="{DynamicResource NavColor}"  Name="TabControlCanvas" HorizontalAlignment="Left" Width="200">
             <Line StartPoint="0,1" EndPoint="200,1" Stroke="Black" StrokeThickness="0.3"/>
         </Canvas>
-        <ScrollViewer>
         <TabControl Margin="0" TabStripPlacement="Left"  Name="TabPanel" Items="{Binding ConnectionInfoDatabase.Database}" 
                         SelectedIndex="{Binding SelectedIndex}" HorizontalAlignment="Left" VerticalAlignment="Top" >     
             <TabControl.ItemTemplate>
@@ -63,8 +66,30 @@
 					    <pages:ConnectionPage/>
 				</DataTemplate>
 			</TabControl.ContentTemplate>
+            <TabControl.Template>
+                <ControlTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ScrollViewer IsVisible="True">
+                        <Grid>
+                            <ItemsPresenter
+                            Name="PART_ItemsPresenter"
+                            Items="{TemplateBinding Items}"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            ItemTemplate="{TemplateBinding ItemTemplate}">
+                            </ItemsPresenter>
+                        </Grid>
+                    </ScrollViewer>
+                    
+                    <ContentPresenter Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="4,0" Content="{TemplateBinding SelectedContent}" ContentTemplate="{TemplateBinding ContentTemplate}">
+                    </ContentPresenter>
+                </Grid>
+            </ControlTemplate>
+            </TabControl.Template>
         </TabControl>
-        </ScrollViewer>
        <Canvas HorizontalAlignment="Left" Background="{DynamicResource NavButtonsBarColor}" VerticalAlignment="Bottom"  Width="200" Height="50">
             <Button Command="{Binding AddItemButtonCommand}" Classes="NavButton" Margin="4,5" 
                         Height="40" Width="40"  HorizontalAlignment="Left" VerticalAlignment="Top">

@@ -1,5 +1,5 @@
 # UlConnect
-<img src="https://i.ibb.co/S5Zx0HP/App-view.png" alt="App-view" border="0">
+<img src="https://i.ibb.co/Fn6VLC3/main.png" alt="main" border="0">
 <h2>How to use program</h2>
 - You <bold>require</bold> our solution to work with this program</br>
 - Port 8266 must be open if you want access to your board from internet</br>
@@ -10,7 +10,7 @@
 <h3>5. Click on "Turn on/off" to turn your PC on or off</h3>
 <h2>Bulding from source</h2>
 <h3>1. Requirements</h2>
-- .NET Core >=3.0</br>
+- .NET Core 3.0-3.1</br>
 - Git
 <h3>2a. Build the project for Windows</h3>
 
@@ -29,7 +29,7 @@ dotnet restore
 dotnet build 
 ```
 
-<h3>3. (optional) Add more languages</h3>
+<h3>3. (optional) Add languages</h3>
 <h4>For windows version</h4>
 in linux:
 

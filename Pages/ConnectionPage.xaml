@@ -9,7 +9,7 @@
    <Grid Name="ConnectionPanel" HorizontalAlignment="Left" VerticalAlignment="Top" ColumnDefinitions="Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">       
         <TextBlock Grid.Row="0" Classes="UITextBlock"  HorizontalAlignment="Left"  VerticalAlignment="Top" 
                     Margin="9,12" Text="{Binding PageVariables.ConnectionName}"/>
-        <TextBox Grid.Row="0" Classes="UITextBox" Width="300" MaxLength="17" VerticalAlignment="Top"  
+        <TextBox Grid.Row="0" Classes="UITextBox" Width="300" MaxLength="15" VerticalAlignment="Top"  
                     Margin="185,10" Text="{Binding Name}"/>
         <TextBlock Grid.Row="1" Classes="UITextBlock"  HorizontalAlignment="Left" VerticalAlignment="Top" 
                     Margin="9,2" Text="{Binding PageVariables.BoardAddress}"/>

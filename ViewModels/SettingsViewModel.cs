@@ -19,16 +19,7 @@ namespace UlConnect.ViewModels
         public SettingsViewModel(LanguageDatabase languageDatabase, SettingsDatabase settingsDatabase, ConnectionInfoDatabase connectionInfoDatabase)
         {
             UpdateSettingsVisual(languageDatabase);
-            FileNames = FileOperations.GetFileNames("lang", arr => {
-                if (arr.Length > 1)
-                {
-                    if (arr[1] == "json")
-                    {
-                        return true;
-                    }
-                }
-                return false;
-                });
+            FileNames = FileOperations.GetFileNames("lang", FileOperations.IsJsonChecker);
             if (FileNames.Count == 0)
             {
                 FileOperations.AddUnsucessfullImportTask("Missing language files in \nlang folder");
@@ -50,7 +41,7 @@ namespace UlConnect.ViewModels
                 languageDatabase.ImportLanguage(FileNames[selectedIndex]);
                 UpdateSettingsVisual(languageDatabase);
                 connectionInfoDatabase.CreateConnectionText = languageDatabase.Database["CreateConnectionText"];
-                languageDatabase.SetLanguageForAllElementsInDatabase(connectionInfoDatabase.Database);
+                languageDatabase.SetLanguageForConnDatabaseElements(connectionInfoDatabase.Database);
                 });
         }
         public void UpdateSettingsVisual(LanguageDatabase languageDatabase)

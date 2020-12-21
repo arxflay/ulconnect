@@ -1,9 +1,5 @@
 ﻿using UlConnect.Services;
-using System.Collections.ObjectModel;
 using ReactiveUI;
-using UlConnect.Views;
-using UlConnect.Logic;
-using UlConnect.Models;
 namespace UlConnect.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
@@ -21,7 +17,7 @@ namespace UlConnect.ViewModels
             //Importing language
             if (!settingsDatabase.Database.ContainsKey("Language"))
             {
-                languageDatabase.ImportLanguage("en_EN");
+                languageDatabase.ImportLanguage("en");
             }
             else
             {

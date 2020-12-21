@@ -2,13 +2,9 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using UlConnect.Logic;
 using System;
-using System.Text;
-using System.Linq;
-using System.IO;
 using Avalonia.Media;
 using System.Diagnostics;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using WebSocketSharp;
 using UlConnect.Models;
 using ReactiveUI;
@@ -41,8 +37,9 @@ namespace UlConnect.ViewModels
             ConnectionInfoDatabase.ImportDatabaseFromFile("data");
             if (ConnectionInfoDatabase.Database.Count != 0)
             {
+                
                 ConnectionInfoDatabase.IsDatabaseEmpty = false;
-                languageDatabase.SetLanguageForAllElementsInDatabase(ConnectionInfoDatabase.Database); 
+                languageDatabase.SetLanguageForConnDatabaseElements(this.ConnectionInfoDatabase.Database);
             }
             //Intialize ReactiveCommands
             DisconnectButtonCommand = ReactiveCommand.Create(() => {ThreadPool.QueueUserWorkItem(Disconnect);});
@@ -50,7 +47,7 @@ namespace UlConnect.ViewModels
             AddItemButtonCommand = ReactiveCommand.Create(() => 
             {
                 var connItem = new ConnectionInfoItem();
-                connItem.PageVariables.SetLanguage(languageDatabase.Database);
+                languageDatabase.SetLanguageForConnection(connItem.PageVariables);
                 ConnectionInfoDatabase.AddItem(connItem, "data");
             });
             RemoveItemButtonCommand = ReactiveCommand.Create(() => { 

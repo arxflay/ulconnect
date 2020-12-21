@@ -12,7 +12,7 @@
   "Error": "Connection state: invalid ip address",
   "Disconnecting": "Connection state: disconnecting...",
   "Disconnected": "Connection state: disconnected",
-  "ConnectionTimeout": "Connection state: Time is over, disconnecting...",
+  "ConnectionTimeout": "Connection state: Send timeout, disconnecting...",
   "PCOff": "PC state: off",
   "PCOn": "PC state: on",
   "CreateConnectionText": "Click on + to add new connection",

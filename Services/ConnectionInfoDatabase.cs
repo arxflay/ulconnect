@@ -1,5 +1,4 @@
 using ReactiveUI;
-using System.Collections.Generic;
 using UlConnect.Models;
 using UlConnect.Logic;
 using System.Collections.ObjectModel;

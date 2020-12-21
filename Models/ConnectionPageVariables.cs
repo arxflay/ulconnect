@@ -43,38 +43,5 @@ namespace UlConnect.Models
         public IBrush ConnectionStatusColor {get {return connectionStatusColor;} set{this.RaiseAndSetIfChanged(ref connectionStatusColor, value);} }
         public IBrush PCStatusColor {get {return pcStatusColor;} set{this.RaiseAndSetIfChanged(ref pcStatusColor, value);} }
         public string PCStatusText {get {return pcStatusText;} set{this.RaiseAndSetIfChanged(ref pcStatusText, value);} }
-        ///<summary>
-        ///Sets language for string page variables
-        ///</summary>
-        ///<param ="langLines">
-        ///Dictionary which contains language lines (sentences, words)
-        ///</param>
-        public void SetLanguage(Dictionary<string,string> langLines)
-        {
-            ConnectionName = langLines["ConnectionName"];
-            BoardAddress = langLines["BoardAddress"];
-            Password = langLines["Password"];
-            SaveInfoBtn = langLines["SaveInfoBtn"];
-            ConnectBtn = langLines["ConnectBtn"];
-            DisconnectBtn = langLines["DisconnectBtn"];
-            TurnPConoffBtn = langLines["TurnPConoffBtn"];
-            if (IsConnected == false)
-            {
-                ConnectionStatusText = langLines["ConnectionDefault"];
-            }
-            else
-            {
-                ConnectionStatusText = langLines["Connected"];
-            }
-            if (PCStatusColor == Brushes.Green)
-            {
-                 PCStatusText = langLines["PCOn"];
-            }
-            else
-            {
-                PCStatusText = langLines["PCOff"];
-            }
-        }
-
     }
 }

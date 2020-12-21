@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using ReactiveUI;
 using UlConnect.Logic;
 using System.IO;
-using Newtonsoft.Json;
+using System.Globalization;
 namespace UlConnect.Services
 {
     public class SettingsDatabase : ReactiveObject
@@ -22,7 +21,16 @@ namespace UlConnect.Services
         {
             if (!File.Exists(FileOperations.AppDirectory + "settings.json"))
             {
-               CreateDefaultSettingsFile();
+               List<string> filenames = FileOperations.GetFileNames("lang", FileOperations.IsJsonChecker);
+               CultureInfo ci = CultureInfo.CurrentCulture;
+               if (filenames.Contains(ci.TwoLetterISOLanguageName))
+               {
+                   CreateDefaultSettingsFile(ci.TwoLetterISOLanguageName);
+               }
+               else
+               {
+                   CreateDefaultSettingsFile("en");
+               }
             }
             else
             {
@@ -32,10 +40,10 @@ namespace UlConnect.Services
         ///<summary>
         ///Creates settigns file with default values and keys
         ///</summary>
-        public void CreateDefaultSettingsFile()
+        public void CreateDefaultSettingsFile(string language)
         {
             Dictionary<string, string> settings = new Dictionary<string, string>();
-            settings["Language"] = "en_EN";
+            settings["Language"] = language;
             this.Database = settings;
             FileOperations.SaveStringDictionary(settings, "settings.json");
         }

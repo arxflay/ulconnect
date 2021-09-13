@@ -2,18 +2,18 @@
 <img src="https://i.ibb.co/Fn6VLC3/main.png" alt="main" border="0">
 
 ## How to use program
-- You <bold>require</bold> our solution to work with this program
-- Port 8266 must be open if you want access to your board from internet
+- You <bold>need</bold> our solution to work with this program
+- Port 8266 must be open if you want access your board from the internet
 ### 1. Click on + to add connection
-### 2. In textbox "Board Address" enter ws://yourBoardIpAddress:8266
-### 3. In textbox "Password" enter password of your board
+### 2. Enter ws://yourBoardIpAddress:8266 in the textbox "Board Address" 
+### 3. Enter password of your board in the textbox "Password"
 ### 4. Save connection info and click on "Connect"
 ### 5. Click on "Turn on/off" to turn your PC on or off
-## Bulding from source
+## Building from source
 ### NOTE
-Currently if you compile windows .exe in Linux or Mac and run app, not only app will appear but also a useless console
+Currently if you compile windows .exe on Linux or Mac and run app, a useless console will also appear.
 
-There's temporary solution - compile it in Windows.
+There's temporary solution - compile it on Windows.
 ### 1. Requirements
 - .NET Core 3.0-3.1
 - Git
@@ -34,7 +34,7 @@ dotnet restore
 dotnet build 
 ```
 
-### 3. (optional) Add languages
+### 3. (optional) Install additional languages
 #### For windows version
 in linux:
 

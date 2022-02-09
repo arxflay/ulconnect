@@ -2,7 +2,7 @@
 <img src="https://i.ibb.co/Fn6VLC3/main.png" alt="main" border="0">
 
 ## How to use program
-- You <bold>need</bold> our solution to work with this program
+- You <bold>need</bold> ESP32 / ESP8266
 - Port 8266 must be open if you want access your board from the internet
 ### 1. Click on + to add connection
 ### 2. Enter ws://yourBoardIpAddress:8266 in the textbox "Board Address" 
